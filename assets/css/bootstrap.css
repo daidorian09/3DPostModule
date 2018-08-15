@@ -277,7 +277,7 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #333;
-  background-color: #000;
+  /* background-color: #000; */
 }
 input,
 button,
@@ -5782,4 +5782,14 @@ button.close {
     display: none !important;
   }
 }
+
+.footer{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  margin-left:-200px; 
+  width:400px;
+  height:100px;
+}
+
 /*# sourceMappingURL=bootstrap.css.map */

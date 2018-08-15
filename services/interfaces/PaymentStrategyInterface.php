@@ -1,5 +1,5 @@
 <?php
-interface PaymentStrategy {
+interface PaymentStrategyInterface {
     public function pay($paymentModel);
 }
 ?>

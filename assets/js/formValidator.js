@@ -1,5 +1,5 @@
-$(document).ready(function() {
-    $('#sign_up').bootstrapValidator({
+$(document).ready(function () {
+    $('#cart-form').bootstrapValidator({
         live: 'enabled',
         message: 'This value is not valid',
         feedbackIcons: {
@@ -8,112 +8,82 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-            name: {
-                message: 'Entered name is not valid',
+            email: {
                 validators: {
                     notEmpty: {
-                        message: 'The name  is required and can\'t be empty'
+                        message: 'The email address is required and can\'t be empty'
                     },
-                    stringLength: {
-                        min: 3,
-                        max: 50,
-                        message: 'The name is required to be more than 3 and less than 50 characters long'
+                    emailAddress: {
+                        message: 'The input is not a valid email address'
                     }
                 }
             },
-              lastname: {
-                message: 'Entered lastname is not valid',
+            paymentType: {
                 validators: {
                     notEmpty: {
-                        message: 'The lastname  is required and can\'t be empty'
-                    },
-                    stringLength: {
-                        min: 1,
-                        max: 50,
-                        message: 'The lastname is required to be more than 1 and less than 50 characters long'
+                        message: 'Payment type is required and can\'t be empty'
                     }
                 }
             },
-             answer: {
-                message: 'Entered answer is not valid',
+            amount: {
                 validators: {
                     notEmpty: {
-                        message: 'The answer  is required and can\'t be empty'
+                        message: 'Amount is required and can\'t be empty'
+                    }
+                }
+            },
+            currency: {
+                validators: {
+                    notEmpty: {
+                        message: 'Currency is required and can\'t be empty'
+                    }
+                }
+            },
+            expireDateMonth: {
+                validators: {
+                    notEmpty: {
+                        message: 'Card expire date month is required and can\'t be empty'
                     },
                     stringLength: {
-                        min: 1,
-                        max: 100,
-                        message: 'The answer is required to be more than 1 and less than 100 characters long'
+                        max: 2,
+                        message: 'Card expire date month requires 2 digit '
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9iİüÜöÖşŞçÇğĞ.;*-+!@#$%^&\s]+$/,
-                        message: 'The answer can only consist of alphabetical characters'
+                        regexp: /^[0-9]{2}$/,
+                        message: 'Card expire date month is invalid'
                     }
                 }
             },
-            email: {
+            expireDateYear: {
                 validators: {
                     notEmpty: {
-                        message: 'The email address is required and can\'t be empty'
+                        message: 'Card expire date year is required and can\'t be empty'
                     },
-                    emailAddress: {
-                        message: 'The input is not a valid email address'
+                    stringLength: {
+                        max: 2,
+                        message: 'Card expire date year requires 2 digit '
+                    },
+                    regexp: {
+                        regexp: /^[0-9]{2}$/,
+                        message: 'Card expire date year is invalid'
                     }
                 }
             },
-            password: {
+            cardSecurityNumber: {
                 validators: {
                     notEmpty: {
-                        message: 'The password is required and can\'t be empty'
+                        message: 'Card security number is required and can\'t be empty'
                     },
-                    identical: {
-                        field: 'confirmPassword',
-                        message: 'The password and its confirm are not the same'
-                    }
-                }
-            },
-            confirmPassword: {
-                validators: {
-                    notEmpty: {
-                        message: 'The confirm password is required and can\'t be empty'
+                    stringLength: {
+                        max: 3,
+                        message: 'Card expire date year requires 3 digit '
                     },
-                    identical: {
-                        field: 'password',
-                        message: 'The password and its confirm are not the same'
+                    regexp: {
+                        regexp: /^[0-9]{3}$/,
+                        message: 'Card security code is invalid'
                     }
                 }
             }
         }
     });
 });
-
-$(document).ready(function() {
-    $('#sign_in').bootstrapValidator({
-        message: 'This value is not valid',
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            email: {
-                validators: {
-                    notEmpty: {
-                        message: 'The email address is required and can\'t be empty'
-                    },
-                    emailAddress: {
-                        message: 'The input is not a valid email address'
-                    }
-                }
-            },
-            password: {
-                validators: {
-                    notEmpty: {
-                        message: 'The password is required and can\'t be empty'
-                    }
-                }
-            }
-        }
-    });
-});
-
