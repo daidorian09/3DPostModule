@@ -1,19 +1,13 @@
 <?php
 require_once('./interfaces/PaymentStrategyInterface.php');
 require_once('./ThreeDModelStrategy.php');
-
-
-abstract class PaymentType {
-    const threeDModel = 1;
-    const threeDPay = 1;
-}
-
+require_once('../const/PaymentTypeConstants.php');
 
 class PaymentStrategy implements PaymentStrategyInterface {
     private $_strategy = NULL;
     public function __construct(int $paymentType) {
         switch($paymentType) {
-            case PaymentType::threeDModel:
+            case PaymentType::THREE_D_MODEL:
             $this->_strategy = new ThreeDModelStrategy();
                 break;            
             default:                
