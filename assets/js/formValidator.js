@@ -49,7 +49,7 @@ $(document).ready(function () {
                         message: 'Card expire date month requires 2 digit '
                     },
                     regexp: {
-                        regexp: /^[0-9]{2}$/,
+                        regexp: /^(0[1-9]|1[0-2])$/,
                         message: 'Card expire date month is invalid'
                     }
                 }

@@ -56,7 +56,7 @@ require_once('../const/CurrencyConstants.php');
 
                             <div class="form-group">
                                 <select class="form-control" name="currency">
-                                    <option selected>Available Currencies</option>
+                                    <option value="-1" selected>Available Currencies</option>
                                     <option value="<?=CurrencyConstants::USD;?>">$</option>
                                     <option value="<?=CurrencyConstants::TL;?>">TL</option>
                                     <option value="<?=CurrencyConstants::EURO;?>">£</option>
@@ -124,7 +124,7 @@ $(document).ready(function () {
 
                             // $("#response").addClass("alert alert-success")+$("#response").html("<h4 class='col-md-offset-4'><strong>"+response.verifed+"</strong></h4>").show();
                         } else {
-                            alert('xxx');
+                            $("#response").addClass("alert alert-danger")+$("#response").html("<h4 class='col-md-offset-4'><strong>"+response.message+"</strong></h4>").show();     
                         }
                     },
                 })

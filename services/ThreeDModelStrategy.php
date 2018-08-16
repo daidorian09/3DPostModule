@@ -1,16 +1,24 @@
 <?php
 
 require_once('./interfaces/PaymentStrategyInterface.php');
+require_once('./PaymentFactoryService.php');
+
 require_once('../const/VPosConstants.php');
 require_once('../const/PaymentModelClassConstants.php');
+require_once('../const/PaymentTypeConstants.php');
+
 require_once('../helpers/TransactionIdGeneratorHelper.php');
 require_once('../helpers/CheckoutFormPropsHelper.php');
-require_once('./PaymentFactoryService.php');
+require_once('../helpers/FormValidator.php');
+
 
 class ThreeDModelStrategy implements PaymentStrategyInterface {
 
     public function pay($paymentModel) 
     {
+
+        FormValidator::validateCurrencyType($paymentModel['currency']);
+
         $paymentModel['amount'] = (int)CheckoutFormPropsHelper::replaceAmountSeparators($paymentModel['amount']);
        
         //To do Amount check if an entered amount is 1
@@ -37,27 +45,32 @@ class ThreeDModelStrategy implements PaymentStrategyInterface {
         $SecurityData = strtoupper(sha1($model->getStoreProvisionPassword().$model->getStoreTerminalID()));
         $HashData = strtoupper(sha1($model->getStoreTerminalID().$model->getStoreOrderID().$model->getStoreAmount().$model->getStoreType().$model->getStoreInstallmentCount().$model->getStoreKey().$SecurityData));
 
-        //To do Send HttpRequest
-
-        // $url = 'http://server.com/path';
-        // $data = array('key1' => 'value1', 'key2' => 'value2');
-
-        // // use key 'http' even if you send the request to https://...
-        // $options = array(
-        //     'http' => array(
-        //         'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-        //         'method'  => 'POST',
-        //         'content' => http_build_query($data)
-        //     )
-        // );
-        // $context  = stream_context_create($options);
-        // $result = file_get_contents($url, false, $context);
-        // if ($result === FALSE) { /* Handle error */ }
-
-        // var_dump($result);
+        $url = VPosConstants::VPOST_GARANTI_URL;
+        $data = array('mode' => $model->getStoreMode(), 'apiversion' => $model->getStoreApiVersion(), 'terminalprovuserid' => $model->getStoreTerminalProvUserID(),
+    'terminaluserid' => $model->getStoreTerminalUserID(), 'terminalmerchantid' => $model->getStoreTerminalMerchantID(),'txntype' => $model->getStoreType(),
+'txnamount' => $model->getStoreAmount(), 'txncurrencycode' => $model->getStoreCurrencyCode(), 'txninstallmentcount' => $model->getStoreInstallmentCount(),
+'orderid' => $model->getStoreOrderID(), 'terminalid' => $model->getStoreTerminalID(), 'successurl' => 'http://localhost:8081/vpos/views/3DModel.php', 'errorurl' => 'http://localhost:8081/vpos/views/3DModel.php',
+ 'customeremailaddress' => $model->getStoreCustomerEmailAddress(), 'customeripaddress' => $model->getStoreCustomerIpAddress(),
+ 'secure3dhash' => $HashData);
+        
+        // use key 'http' even if you send the request to https://...
+        $options = array(
+            'http' => array(
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query($data)
+            )
+        );
+        $context  = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        if ($result === FALSE) { /* Handle error */ }
+        
+        var_dump($result);
 
         return $paymentModel;
     }
+
+    
 }
 
 
