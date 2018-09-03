@@ -1,8 +1,12 @@
+<?php
+require_once('../const/BaseUrlConstant.php');
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>3D Pos</title>
-    <base href="http://localhost:8081/vpos/">
+    <base href="<?=BaseUrlConstant::BASE_URL;?>">
 
     <!--Css-->
     <link rel="stylesheet" href="assets/css/bootstrap.css"/>

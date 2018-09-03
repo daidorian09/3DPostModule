@@ -22,10 +22,12 @@ require_once('../const/CurrencyConstants.php');
 
                             <div class="form-group">
                                 <select class="form-control" name="paymentType">
-                                    <option selected>Payment Types</option>
+                                    <option value="-1" selected>Payment Types</option>
                                     <option value="1">3D Pay</option>
                                 </select>
                             </div>
+
+                           <div id="payment-container" style='display:none;'> 
 
                             <div class="form-group">
                                 <div class="col-sm-10">
@@ -75,8 +77,10 @@ require_once('../const/CurrencyConstants.php');
                                 <input type="text" class="form-control" name="cardSecurityNumber" placeholder="Security Code" />
                             </div>
 
+                            </div>
+
                             <div class="form-group">
-                                <button type="submit" id="submit" name="submit" class="btn btn-primary  col-lg-6 col-lg-offset-3">Checkout</button>
+                                <button type="submit" id="submit" name="submit" class="btn btn-primary  col-lg-6 col-lg-offset-3" disabled >Checkout</button>
                             </div>
 
                             <div id="response" hidden style="margin-top:62px;">
@@ -90,6 +94,9 @@ require_once('../const/CurrencyConstants.php');
 </body>
 <script>
 
+
+
+
     $(function () {
         $("#amount").maskMoney({
             thousands: ',',
@@ -101,6 +108,15 @@ require_once('../const/CurrencyConstants.php');
 
 
 $(document).ready(function () {
+
+        $('select[name=paymentType]').on('change', function() {
+            const selectedValue =  parseInt($(this).find(":selected").val());
+            $('#payment-container').hide(250);
+            //console.log(selectedValue)
+            if (selectedValue !== -1) {
+                $('#payment-container').show(250);
+            }
+        });
         $('#chck-inst').click(function () {
             this.checked ? $('#div-inst').show(250) : $('#div-inst').hide(250); //time for show
         });
